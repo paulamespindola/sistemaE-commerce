@@ -18,6 +18,14 @@ public class Produto {
         this.descricao = descricao;
     }
 
+    public void exibirProduto(){
+        System.out.println("\n--------------------------------------------------------------------------------");
+        System.out.println("\n\t\t\t\t   Produto " );
+        System.out.println("\n--------------------------------------------------------------------------------");
+        System.out.println("\nCódigo: " + getCodigo() +"\nCategoria:"+getCategoria()+"\n\nNome: " + getNome() + "\n\nPreço: " + getValor() + "\n\nDescrição: " + getDescricao());
+        //System.out.println("----------------------------------------------------------------------------------");
+
+    }
     public String getNome() {
         return nome;
     }
