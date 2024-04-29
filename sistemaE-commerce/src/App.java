@@ -17,7 +17,7 @@ public class App {
         estoque.adicionarProduto(produto1, 10);
         estoque.adicionarProduto(produto2, 15);
         estoque.adicionarProduto(produto3, 20);
-        estoque.adicionarProduto(produto4, 8);
+        estoque.adicionarProduto(produto4, 0);
 
         produto4.exibirProduto();
        // estoque.listarProduto();

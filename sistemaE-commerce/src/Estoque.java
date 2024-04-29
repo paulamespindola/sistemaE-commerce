@@ -29,6 +29,11 @@ public class Estoque {
         }
     }
 
+    public void diminuirEstoque(Produto produto, int quantidade){
+        produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() - quantidade);
+    }
+
+    
 
     
 }
