@@ -19,8 +19,13 @@ public class App {
         estoque.adicionarProduto(produto3, 20);
         estoque.adicionarProduto(produto4, 0);
 
-        produto4.exibirProduto();
+        //produto4.exibirProduto();
        // estoque.listarProduto();
+
+       //teste interface
+       Interface telas = new Interface();
+
+       telas.telaPrincipal();
     
     }
 }
