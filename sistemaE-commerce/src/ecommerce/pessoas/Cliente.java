@@ -3,7 +3,6 @@ package ecommerce.pessoas;
 import java.util.ArrayList;
 import java.util.List;
 
-import ecommerce.estoque.Estoque;
 import ecommerce.estoque.Produto;
 
 
@@ -12,9 +11,6 @@ public class Cliente extends Pessoa {
     private List<Produto> carrinhoDeCompras;
     
     
-    
-
-
     public Cliente(String nome, int cpf, int telefone, String email, int idCliente) {
         super(nome, cpf, telefone, email);
         this.idCliente = idCliente;
@@ -65,13 +61,40 @@ public class Cliente extends Pessoa {
     
     
 
-    public void editarQuantProduto(Produto produto, int quantidadeNova){
-
+    public void editarQuantidadeProduto(Produto produto, int novaQuantidade) {
+        // Verificar se o produto está no carrinho
+        boolean produtoNoCarrinho = false;
+        for (Produto p : carrinhoDeCompras) {
+            if (p.getCodigo() == produto.getCodigo()) {
+                produtoNoCarrinho = true;
+                // Atualizar a quantidade do produto no carrinho
+                p.setQuantidadeCarrinho(novaQuantidade);
+                System.out.println("Quantidade do produto " + produto.getNome() + " atualizada para " + novaQuantidade);
+                break;
+            }
+        }
+        if (!produtoNoCarrinho) {
+            System.out.println("O produto não está no carrinho.");
+        }
     }
     
-    public void removerProduto(Estoque estoque, Produto produto){
-        carrinhoDeCompras.remove(produto);
+    
+    public void removerProdutoDoCarrinho(Produto produto) {
+        // Verificar se o produto está no carrinho
+        boolean produtoNoCarrinho = false;
+        for (Produto p : carrinhoDeCompras) {
+            if (p.getCodigo() == produto.getCodigo()) {
+                produtoNoCarrinho = true;
+                carrinhoDeCompras.remove(p);
+                System.out.println("Produto " + produto.getNome() + " removido do carrinho.");
+                break;
+            }
+        }
+        if (!produtoNoCarrinho) {
+            System.out.println("O produto não está no carrinho.");
+        }
     }
+    
 
     @Override
     public void login() {
@@ -88,9 +111,9 @@ public class Cliente extends Pessoa {
     }
    
      public void exibirCarrinho(){
-        System.out.println("***************************************************");
-        System.out.println("\n\t\tCarrinho de Compras");
-        System.out.println("\n-------------------------------------------------");
+        System.out.println("\n***************************************************");
+        System.out.println("\t\tCarrinho de Compras");
+        System.out.println("---------------------------------------------------");
         for (Produto produto  : carrinhoDeCompras) {
             System.out.println("\nNome: " + produto.getNome() + "\nPreço: " + produto.getValor() + "\t      Quantidade: " + produto.GetQuantidadeCarrinho());
             System.out.println("\n-------------------------------------------------");
