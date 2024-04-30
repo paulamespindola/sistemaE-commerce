@@ -2,6 +2,8 @@ package main;
 import ecommerce.estoque.Estoque;
 import ecommerce.estoque.Produto;
 import ecommerce.pessoas.Cliente;
+import ecommerce.interacao.Interface;
+
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -38,9 +40,9 @@ public class App {
       // estoque.listarProduto();
 
        //teste interface
-       //Interface telas = new Interface();
+       Interface telas = new Interface();
 
-       //telas.telaPrincipal();
+       telas.telaPrincipal();
     
     }
 }
