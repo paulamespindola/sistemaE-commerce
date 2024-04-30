@@ -7,9 +7,18 @@ public class Produto {
     private double valor;
     private String descricao;
     private int quantidadeEstoque;
+    private int quantidadeCarrinho;
 
     
     
+    public int GetQuantidadeCarrinho() {
+        return quantidadeCarrinho;
+    }
+
+    public void setQuantidadeCarrinho(int quantidadeCarrinho) {
+        this.quantidadeCarrinho = quantidadeCarrinho;
+    }
+
     public Produto(String nome, int codigo, String categoria, double valor, String descricao) {
         this.nome = nome;
         this.codigo = codigo;

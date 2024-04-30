@@ -23,16 +23,41 @@ public class Cliente extends Pessoa {
     }
     
     
-    public void adicionarProduto(Produto produto, int quantidade){
-        if(quantidade <= 5){
-            for(int i = 0; i < quantidade; i++){ // Correção aqui
-                carrinhoDeCompras.add(produto);
+    public void adicionarProduto(Produto produto, int quantidade) {
+        // Verificar se há quantidade suficiente em estoque
+        if (quantidade <= produto.getQuantidadeEstoque()) {
+            // Verificar se a quantidade excede o limite permitido por produto
+            if (quantidade <= 5) {
+                // Verificar se o produto já está no carrinho
+                boolean produtoJaNoCarrinho = false;
+                for (Produto p : carrinhoDeCompras) {
+                    if (p.getCodigo() == produto.getCodigo()) {
+                        produtoJaNoCarrinho = true;
+                        break;
+                    }
+                }
+                // Se o produto já estiver no carrinho, apenas atualize a quantidade
+                if (produtoJaNoCarrinho) {
+                    for (Produto p : carrinhoDeCompras) {
+                        if (p.getCodigo() == produto.getCodigo()) {
+                            p.setQuantidadeCarrinho(p.GetQuantidadeCarrinho() + quantidade);
+                            break;
+                        }
+                    }
+                } else {
+                    // Caso contrário, adicione o produto ao carrinho
+                    produto.setQuantidadeCarrinho(quantidade);
+                    carrinhoDeCompras.add(produto);
+                }
+                System.out.println("Produto(s) adicionado(s) no carrinho com sucesso!");
+            } else {
+                System.out.println("Ops! O limite máximo de quantidade por produto é de 5 itens.");
             }
-            System.out.println("Produto(s) adicionado(s) no carrinho com sucesso!");
         } else {
-            System.out.println("Ops! O limite máximo de quantidade é de 5 itens.");
+            System.out.println("Ops! Quantidade indisponível em estoque.");
         }
     }
+    
     
 
     public void editarQuantProduto(Produto produto, int quantidadeNova){
@@ -59,10 +84,10 @@ public class Cliente extends Pessoa {
    
      public void exibirCarrinho(){
         System.out.println("***************************************************");
-        System.out.println("\n\t\tProdutos em Estoque");
+        System.out.println("\n\t\tCarrinho de Compras");
         System.out.println("\n-------------------------------------------------");
         for (Produto produto  : carrinhoDeCompras) {
-            System.out.println("\nNome: " + produto.getNome() + "\nPreço: " + produto.getValor());
+            System.out.println("\nNome: " + produto.getNome() + "\nPreço: " + produto.getValor() + "\t      Quantidade: " + produto.GetQuantidadeCarrinho());
             System.out.println("\n-------------------------------------------------");
         }
     }
