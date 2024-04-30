@@ -19,13 +19,19 @@ public class App {
         estoque.adicionarProduto(produto3, 20);
         estoque.adicionarProduto(produto4, 0);
 
-        //produto4.exibirProduto();
-       // estoque.listarProduto();
+        Cliente p1 = new Cliente("Julia", 122222222, 81888888, "llll", 01);
+
+        p1.adicionarProduto(produto4, 1);
+        p1.adicionarProduto(produto1, 4);
+        p1.exibirCarrinho();
+        
+     //  produto4.exibirProduto();
+      // estoque.listarProduto();
 
        //teste interface
-       Interface telas = new Interface();
+       //Interface telas = new Interface();
 
-       telas.telaPrincipal();
+       //telas.telaPrincipal();
     
     }
 }
