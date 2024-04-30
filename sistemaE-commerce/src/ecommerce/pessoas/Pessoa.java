@@ -1,3 +1,5 @@
+package ecommerce.pessoas;
+
 public abstract class Pessoa {
 
     private String nome;

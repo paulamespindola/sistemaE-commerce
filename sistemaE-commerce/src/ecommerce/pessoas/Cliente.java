@@ -1,5 +1,10 @@
+package ecommerce.pessoas;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import ecommerce.estoque.Estoque;
+import ecommerce.estoque.Produto;
 
 
 public class Cliente extends Pessoa {

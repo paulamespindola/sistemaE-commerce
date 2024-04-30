@@ -1,3 +1,8 @@
+package main;
+import ecommerce.estoque.Estoque;
+import ecommerce.estoque.Produto;
+import ecommerce.pessoas.Cliente;
+
 public class App {
     public static void main(String[] args) throws Exception {
         // Criar uma instância da classe Estoque

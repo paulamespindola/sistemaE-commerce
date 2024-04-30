@@ -1,3 +1,4 @@
+package ecommerce.estoque;
 public class Produto {
     /*nome do produto, código do produto, categoria do produto, valor do produto, descrição do produto. */
     
