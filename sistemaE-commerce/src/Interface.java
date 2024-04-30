@@ -1,5 +1,5 @@
 import java.util.Scanner;
-
+// interface da primeira página
 public class Interface {
     public int opc;
     
@@ -23,10 +23,11 @@ public class Interface {
         setOpc(scanner.nextInt());
         switch (getOpc()) {
             case 1:
-                System.out.println("Olá, cliente");
+                System.out.println("Olá, cliente faça login");
                 break;
         
             default:
+            System.out.println("Olá, administrador faça login");
                 break;
         }
 
