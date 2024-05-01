@@ -1,17 +1,23 @@
 package ecommerce.interacao;
 
+import java.util.List;
 import java.util.Scanner;
 // interface da primeira página
+
+import ecommerce.estoque.Estoque;
+import ecommerce.estoque.Produto;
 
 //import ecommerce.pessoas.Pessoa;
 public class Interface {
    // private Pessoa pessoa;
     public int opc;
+    private Estoque estoque;
     private Scanner scanner;
 
-    public Interface() {
+    public Interface(Estoque estoque) {
         this.opc = -1;
         this.scanner = new Scanner(System.in);
+        this.estoque = estoque;
     }
 
     public String titulo(){
@@ -74,7 +80,7 @@ public class Interface {
                     break;
                 case 3:
                     limparTerminal();
-                    System.out.println("Tela para comprar em criação");
+                    telaComprar();
                     continuar = false;
                     break;
                 case 4:
@@ -91,6 +97,53 @@ public class Interface {
             }
         }
     }
+    
+    public void telaComprar() {
+        while (true) {
+            System.out.println(titulo());
+            System.out.println("Digite o número da respectiva categoria:");
+            System.out.println("1 - Eletrodomésticos");
+            System.out.println("2 - Móveis");
+            System.out.println("0 - Voltar");
+
+            int opcao = scanner.nextInt();
+            switch (opcao) {
+                case 1:
+                    limparTerminal();
+                    exibirProdutos("Eletrodomésticos");
+                    break;
+                case 2:
+                    exibirProdutos("Móveis");
+                    break;
+                case 0:
+                    return;
+                default:
+                    System.out.println("Opção inválida. Por favor, escolha uma opção válida.");
+                    break;
+            }
+        }
+    }
+
+    public void exibirProdutos(String categoria) {
+        List<Produto> produtos = estoque.getProdutosPorCategoria(categoria);
+        System.out.println(titulo());
+        System.out.println("Produtos da categoria " + categoria);
+        for (int i = 0; i < produtos.size(); i++) {
+            System.out.println();
+            System.out.println((i + 1) + " - " + produtos.get(i).getNome());
+        }
+
+        System.out.println("\nDigite o número do produto que deseja visualizar:");
+        int opcao = scanner.nextInt();
+        if (opcao >= 1 && opcao <= produtos.size()) {
+            Produto produtoSelecionado = produtos.get(opcao - 1);
+            produtoSelecionado.exibirProduto();
+        } else {
+            System.out.println("Opção inválida.");
+        }
+    }
+
+
     
 
     public void telaPrincipalAdm(){
@@ -123,6 +176,26 @@ public class Interface {
             }
         } while (continuar);
 
+    }
+
+
+    public void telaPrincipalClienteComprar(){
+        System.out.println(titulo());
+        System.out.println("\nDigite uma das opções:");
+        System.out.println("1 - Eletrodomésticos\n2 - Móveis");
+
+        boolean continuar = true;
+        opc = scanner.nextInt();
+        do {
+            switch (opc) {
+                case 1:
+                    
+                    break;
+            
+                default:
+                    break;
+            }
+        } while (continuar);
     }
 
     private void limparTerminal() {

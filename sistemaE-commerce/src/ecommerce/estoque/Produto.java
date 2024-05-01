@@ -20,6 +20,7 @@ public class Produto {
         this.descricao = descricao;
     }
 
+
     public void exibirProduto(){
         System.out.println("\n--------------------------------------------------------------------------------");
         System.out.println("\n\t\t\t\t   Produto " );
@@ -35,6 +36,7 @@ public class Produto {
         //System.out.println("----------------------------------------------------------------------------------");
 
     }
+
     public String getNome() {
         return nome;
     }

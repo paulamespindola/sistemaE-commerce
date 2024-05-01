@@ -30,8 +30,27 @@ public class Estoque {
         }
     }
 
+
     public void diminuirEstoque(Produto produto, int quantidade){
         produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() - quantidade);
+    }
+
+    public List<Produto> getProdutosPorCategoria(String categoria) {
+        List<Produto> produtosPorCategoria = new ArrayList<>();
+        for (Produto produto : produtosEmEstoque) {
+            if (produto.getCategoria().equalsIgnoreCase(categoria)) {
+                produtosPorCategoria.add(produto);
+            }
+        }
+        return produtosPorCategoria;
+    }
+    
+    public List<Produto> getProdutosEmEstoque() {
+        return produtosEmEstoque;
+    }
+
+    public void setProdutosEmEstoque(List<Produto> produtosEmEstoque) {
+        this.produtosEmEstoque = produtosEmEstoque;
     }
 
     

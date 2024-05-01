@@ -40,7 +40,7 @@ public class App {
       // estoque.listarProduto();
 
        //teste interface
-       Interface telas = new Interface();
+       Interface telas = new Interface(estoque);
 
        telas.telaPrincipal();
     
