@@ -41,7 +41,7 @@ public class Cliente extends Pessoa {
                 if (produtoJaNoCarrinho) {
                     for (Produto p : carrinhoDeCompras) {
                         if (p.getCodigo() == produto.getCodigo()) {
-                            p.setQuantidadeCarrinho(p.GetQuantidadeCarrinho() + quantidade);
+                            p.setQuantidadeCarrinho(p.getQuantidadeCarrinho() + quantidade);
                             break;
                         }
                     }
@@ -115,7 +115,7 @@ public class Cliente extends Pessoa {
         System.out.println("\t\tCarrinho de Compras");
         System.out.println("---------------------------------------------------");
         for (Produto produto  : carrinhoDeCompras) {
-            System.out.println("\nNome: " + produto.getNome() + "\nPreço: " + produto.getValor() + "\t      Quantidade: " + produto.GetQuantidadeCarrinho());
+            System.out.println("\nNome: " + produto.getNome() + "\nPreço: " + produto.getValor() + "\t      Quantidade: " + produto.getQuantidadeCarrinho());
             System.out.println("\n-------------------------------------------------");
         }
     }

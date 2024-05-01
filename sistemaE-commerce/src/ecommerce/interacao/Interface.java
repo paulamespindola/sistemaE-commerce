@@ -30,7 +30,8 @@ public class Interface {
             
             switch (getOpc()) {
                 case 1:
-                    telaCliente();
+                    limparTerminal();
+                    telaPrincipalCliente();
                     break;
                 case 2: 
                     // Implementar tela de administrador
@@ -43,16 +44,50 @@ public class Interface {
                     break;
                     
             }
-        } while (continuar); 
+        } while (continuar == false); 
     }
     
 
-    public void telaCliente(){
-        
-        System.out.println(titulo());
-        System.out.println("Digite uma opção:");
-        System.out.println("1 - Login\n2 - Cadastro\n3 - Comprar\n4 - Exibir Carrinho\n0 - Voltar");
+    public void telaPrincipalCliente() {
+        boolean continuar = true;
+        do {
+            limparTerminal();
+            System.out.println(titulo());
+            System.out.println("Seja bem-vindo(a) cliente!");
+            System.out.println("\nDigite uma opção:");
+            System.out.println("1 - Login\n2 - Cadastro\n3 - Comprar\n4 - Exibir Carrinho\n0 - Voltar");
+    
+            opc = scanner.nextInt(); 
+    
+            switch (opc) {
+                case 1:
+                    limparTerminal();
+                    System.out.println("Tela para login em criação");
+                    // Método login
+                    break;
+                case 2:
+                    limparTerminal();
+                    System.out.println("Tela para cadastro em criação");
+                    break;
+                case 3:
+                    limparTerminal();
+                    System.out.println("Tela para comprar em criação");
+                    break;
+                case 4:
+                    limparTerminal();
+                    System.out.println("Tela para mostrar carrinho em criação");
+                    break;
+                case 0:
+                    telaPrincipal();
+                   // continuar = false;
+                    break;
+                default:
+                    opcaoInvalida();
+                    break;
+            }
+        } while (continuar);
     }
+
     public int getOpc() {
         return opc;
     }

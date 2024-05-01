@@ -11,14 +11,6 @@ public class Produto {
     private int quantidadeCarrinho;
 
     
-    
-    public int GetQuantidadeCarrinho() {
-        return quantidadeCarrinho;
-    }
-
-    public void setQuantidadeCarrinho(int quantidadeCarrinho) {
-        this.quantidadeCarrinho = quantidadeCarrinho;
-    }
 
     public Produto(String nome, int codigo, String categoria, double valor, String descricao) {
         this.nome = nome;
@@ -74,9 +66,6 @@ public class Produto {
         this.descricao = descricao;
     }
 
-
-    
-
     public int getQuantidadeEstoque() {
         return quantidadeEstoque;
     }
@@ -84,4 +73,14 @@ public class Produto {
     public void setQuantidadeEstoque(int quantidadeEstoque) {
         this.quantidadeEstoque = quantidadeEstoque;
     }
+
+        
+    public int getQuantidadeCarrinho() {
+        return quantidadeCarrinho;
+    }
+
+    public void setQuantidadeCarrinho(int quantidadeCarrinho) {
+        this.quantidadeCarrinho = quantidadeCarrinho;
+    }
+
 }
