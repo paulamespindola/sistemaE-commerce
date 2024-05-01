@@ -138,6 +138,9 @@ public class Interface {
         if (opcao >= 1 && opcao <= produtos.size()) {
             Produto produtoSelecionado = produtos.get(opcao - 1);
             produtoSelecionado.exibirProduto();
+            System.out.println("\nAdicionar ao carrinho de compras(1-sim/0-não)?");
+            opcao = scanner.nextInt();
+            //implementar lógica para adicionar ao carrinho
         } else {
             System.out.println("Opção inválida.");
         }
