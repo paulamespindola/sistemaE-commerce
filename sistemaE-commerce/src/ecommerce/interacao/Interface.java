@@ -51,56 +51,50 @@ public class Interface {
 
     public void telaPrincipalCliente() {
         boolean continuar = true;
-        do {
+        while (continuar) {
             limparTerminal();
             System.out.println(titulo());
             System.out.println("Seja bem-vindo(a) cliente!");
             System.out.println("\nDigite uma opção:");
             System.out.println("1 - Login\n2 - Cadastro\n3 - Comprar\n4 - Exibir Carrinho\n0 - Voltar");
     
-            opc = scanner.nextInt(); 
+            opc = scanner.nextInt();
     
             switch (opc) {
                 case 1:
                     limparTerminal();
                     System.out.println("Tela para login em criação");
                     // Método login
+                    continuar = false;
                     break;
                 case 2:
                     limparTerminal();
                     System.out.println("Tela para cadastro em criação");
+                    continuar = false;
                     break;
                 case 3:
                     limparTerminal();
                     System.out.println("Tela para comprar em criação");
+                    continuar = false;
                     break;
                 case 4:
                     limparTerminal();
                     System.out.println("Tela para mostrar carrinho em criação");
+                    continuar = false;
                     break;
                 case 0:
-                    telaPrincipal();
-                   // continuar = false;
+                    continuar = false;
                     break;
                 default:
                     opcaoInvalida();
                     break;
             }
-        } while (continuar);
+        }
     }
-
-    public int getOpc() {
-        return opc;
-    }
-
-    public void setOpc(int opc) {
-        this.opc = opc;
-    }
-
+    
 
     public void telaPrincipalAdm(){
-       
-
+    
         boolean continuar = true;
         do {
             limparTerminal();
@@ -116,10 +110,12 @@ public class Interface {
                     limparTerminal();
                     System.out.println(titulo());
                     System.out.println("Tela para login em criação");
+                    continuar = false;
                     // Método login
                     break;
                 case 0:
                     telaPrincipal();
+                    continuar = false;
                     break;
                 default:
                     opcaoInvalida();
@@ -155,6 +151,14 @@ public class Interface {
             // Lidar com exceção, se necessário
             e.printStackTrace();
         }
+    }
+
+    public int getOpc() {
+        return opc;
+    }
+
+    public void setOpc(int opc) {
+        this.opc = opc;
     }
 
 }
