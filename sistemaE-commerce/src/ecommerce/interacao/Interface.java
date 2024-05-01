@@ -34,7 +34,8 @@ public class Interface {
                     telaPrincipalCliente();
                     break;
                 case 2: 
-                    // Implementar tela de administrador
+                    limparTerminal();
+                    telaPrincipalAdm();
                     break;
                 case 0:
                     continuar = false; 
@@ -97,6 +98,36 @@ public class Interface {
     }
 
 
+    public void telaPrincipalAdm(){
+       
+
+        boolean continuar = true;
+        do {
+            limparTerminal();
+            System.out.println(titulo());
+            System.out.println("Seja bem-vindo(a) administrador!");
+            System.out.println("\nDigite uma opção:");
+            System.out.println("1 - Login\n0 - Voltar");
+    
+            opc = scanner.nextInt(); 
+    
+            switch (opc) {
+                case 1:
+                    limparTerminal();
+                    System.out.println(titulo());
+                    System.out.println("Tela para login em criação");
+                    // Método login
+                    break;
+                case 0:
+                    telaPrincipal();
+                    break;
+                default:
+                    opcaoInvalida();
+                    break;
+            }
+        } while (continuar);
+
+    }
 
     private void limparTerminal() {
         try {
