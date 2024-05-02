@@ -25,12 +25,12 @@ public class Produto {
         System.out.println("\n--------------------------------------------------------------------------------");
         System.out.println("\n\t\t\t\t   Produto " );
         System.out.println("\n--------------------------------------------------------------------------------");
-        System.out.println("\nCódigo: " + getCodigo() +"\nCategoria:"+getCategoria()+"\n\nNome: " + getNome() + "\n\nPreço: " + getValor() + "\n\nDescrição: " + getDescricao());
+        System.out.println("\nCódigo: " + getCodigo() +"\nCategoria: "+getCategoria()+"\n\nNome: " + getNome() + "\n\nPreço: " + getValor() + "\n\nDescrição: " + getDescricao());
 
         if(getQuantidadeEstoque() == 0){
             System.out.println("\n\nSTATUS\nOPS! O produto está fora de estoque :/");
         }else if(getQuantidadeEstoque() < 5 ){
-            System.out.println("ALERTA!! ÚLTIMAS UNIDADES\n" + "Qunatidade: " + getQuantidadeEstoque());
+            System.out.println("ALERTA!! ÚLTIMAS UNIDADES\n" + "Quantidade: " + getQuantidadeEstoque());
         } 
             
         //System.out.println("----------------------------------------------------------------------------------");
