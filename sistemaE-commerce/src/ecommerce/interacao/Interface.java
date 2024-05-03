@@ -217,7 +217,7 @@ public class Interface {
         Cliente cliente = new Cliente();
         scanner.nextLine();
         System.out.println("\n\tCadastro de Cliente");
-        System.out.println("Digite os dados abaixo.");
+        System.out.println("\nDigite os dados abaixo.");
         
         do {
             System.out.println("Nome: ");
