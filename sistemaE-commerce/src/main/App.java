@@ -1,7 +1,7 @@
 package main;
 import ecommerce.estoque.Estoque;
 import ecommerce.estoque.Produto;
-import ecommerce.pessoas.Cliente;
+//import ecommerce.pessoas.Cliente;
 import ecommerce.interacao.Interface;
 
 
@@ -26,15 +26,9 @@ public class App {
         estoque.adicionarProduto(produto3, 20);
         estoque.adicionarProduto(produto4, 8);
 
-        Cliente p1 = new Cliente("Julia", 122222222, 81888888, "llll", 01);
 
         
-        p1.adicionarProduto(produto4, 1);
-        p1.adicionarProduto(produto1, 4);
-        p1.exibirCarrinho();
-        p1.editarQuantidadeProduto(produto1, 2);
-        p1.removerProdutoDoCarrinho(produto4);
-        p1.exibirCarrinho();
+
         
      //  produto4.exibirProduto();
       // estoque.listarProduto();

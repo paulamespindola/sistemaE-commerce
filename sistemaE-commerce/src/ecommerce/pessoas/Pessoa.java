@@ -3,13 +3,13 @@ package ecommerce.pessoas;
 public abstract class Pessoa {
 
     private String nome;
-    private int cpf;
-    private int telefone;
+    private String cpf;
+    private String telefone;
     private String email;
 
 
 
-    public Pessoa(String nome, int cpf, int telefone, String email) {
+    public Pessoa(String nome, String cpf, String telefone, String email) {
         this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;
@@ -28,16 +28,16 @@ public abstract class Pessoa {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
-    public int getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
-    public void setTelefone(int telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
     public String getEmail() {
