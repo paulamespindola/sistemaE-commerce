@@ -17,6 +17,7 @@ public class Interface {
     private Estoque estoque;
     private Scanner scanner;
     private List<Cliente> clientesCadastrados;
+    private Cliente clienteAtual;
 
     public Interface(Estoque estoque) {
         this.opc = -1;
@@ -59,6 +60,37 @@ public class Interface {
         } while (continuar == false); 
     }
     
+    public void telaPrincipalAdm(){
+    
+        boolean continuar = true;
+        do {
+            limparTerminal();
+            System.out.println(titulo());
+            System.out.println("Seja bem-vindo(a) administrador!");
+            System.out.println("\nDigite uma opção:");
+            System.out.println("1 - Login\n0 - Voltar");
+    
+            opc = scanner.nextInt(); 
+    
+            switch (opc) {
+                case 1:
+                    limparTerminal();
+                    System.out.println(titulo());
+                    System.out.println("Tela para login em criação");
+                    continuar = false;
+                    // Método login
+                    break;
+                case 0:
+                    telaPrincipal();
+                    continuar = false;
+                    break;
+                default:
+                    opcaoInvalida();
+                    break;
+            }
+        } while (continuar);
+
+    }
 
     public void telaPrincipalCliente() {
         boolean continuar = true;
@@ -103,7 +135,49 @@ public class Interface {
             }
         }
     }
+
+    public void loginCliente() {
+        String email, senha;
+        boolean loginSucesso = false;
+        
+        System.out.println("Digite os dados para o login:");
+        System.out.println("Login (e-mail): ");
+        
+        do {
+            email = scanner.nextLine();
+            
+            // Validar o email
+            if (!Validacao.validarEmail(email)) {
+                System.out.println("Email inválido. O email deve seguir o formato correto.");
+            }
+        } while (!Validacao.validarEmail(email));
+        
+        for (Cliente cliente : clientesCadastrados) {
+            if (cliente.getEmail().equals(email)) {
+                System.out.println("Senha: ");
+                for (int tentativa = 0; tentativa < 5; tentativa++) {
+                    senha = scanner.nextLine();
+                    
+                    // Verificar se a senha é correta
+                    if (cliente.verificarSenha(senha)) {
+                        setClienteAtual(cliente);
+                        System.out.println("\nSeja Bem-vindo(a) " + clienteAtual.getNome());
+                        loginSucesso = true;
+                        break;
+                    } else {
+                        System.out.println("Senha incorreta. Tentativa " + (tentativa + 1) + "/5");
+                    }
+                }
+                break;
+            }
+        }
+        
+        if (!loginSucesso) {
+            System.out.println("Email não cadastrado ou senha incorreta.");
+        }
+    }
     
+
     public void telaComprar() {
         while (true) {
             System.out.println(titulo());
@@ -155,39 +229,7 @@ public class Interface {
 
     
 
-    public void telaPrincipalAdm(){
-    
-        boolean continuar = true;
-        do {
-            limparTerminal();
-            System.out.println(titulo());
-            System.out.println("Seja bem-vindo(a) administrador!");
-            System.out.println("\nDigite uma opção:");
-            System.out.println("1 - Login\n0 - Voltar");
-    
-            opc = scanner.nextInt(); 
-    
-            switch (opc) {
-                case 1:
-                    limparTerminal();
-                    System.out.println(titulo());
-                    System.out.println("Tela para login em criação");
-                    continuar = false;
-                    // Método login
-                    break;
-                case 0:
-                    telaPrincipal();
-                    continuar = false;
-                    break;
-                default:
-                    opcaoInvalida();
-                    break;
-            }
-        } while (continuar);
-
-    }
-
-
+   
     public void telaPrincipalClienteComprar(){
         System.out.println(titulo());
         System.out.println("\nDigite uma das opções:");
@@ -273,7 +315,8 @@ public class Interface {
             switch (opc) {
                 case 1:
                     adicionarCliente(cliente);
-                    System.out.println("Cliente cadastrado com sucesso!!");
+                    setClienteAtual(cliente);
+                    System.out.println("Cliente cadastrado com sucesso!!\nVocê está logado(a) na conta de\n" + clienteAtual.getNome());
                     break;        
                 case 0: 
                     saindo();
@@ -331,6 +374,38 @@ public class Interface {
 
     public void setOpc(int opc) {
         this.opc = opc;
+    }
+
+    public Estoque getEstoque() {
+        return estoque;
+    }
+
+    public void setEstoque(Estoque estoque) {
+        this.estoque = estoque;
+    }
+
+    public Scanner getScanner() {
+        return scanner;
+    }
+
+    public void setScanner(Scanner scanner) {
+        this.scanner = scanner;
+    }
+
+    public List<Cliente> getClientesCadastrados() {
+        return clientesCadastrados;
+    }
+
+    public void setClientesCadastrados(List<Cliente> clientesCadastrados) {
+        this.clientesCadastrados = clientesCadastrados;
+    }
+
+    public Cliente getClienteAtual() {
+        return clienteAtual;
+    }
+
+    public void setClienteAtual(Cliente clienteAtual) {
+        this.clienteAtual = clienteAtual;
     }
 
 }

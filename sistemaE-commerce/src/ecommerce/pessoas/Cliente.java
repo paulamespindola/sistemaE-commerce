@@ -8,6 +8,9 @@ import ecommerce.estoque.Produto;
 
 public class Cliente extends Pessoa {
     private int idCliente;
+    private String senha;
+    
+
     private List<Produto> carrinhoDeCompras;
     
     
@@ -92,11 +95,24 @@ public class Cliente extends Pessoa {
         }
     }
     
+    public void exibirCarrinho(){
+        System.out.println("\n***************************************************");
+        System.out.println("\t\tCarrinho de Compras");
+        System.out.println("---------------------------------------------------");
+        for (Produto produto  : carrinhoDeCompras) {
+            System.out.println("\nNome: " + produto.getNome() + "\nPreço: " + produto.getValor() + "\t      Quantidade: " + produto.getQuantidadeCarrinho());
+            System.out.println("\n-------------------------------------------------");
+        }
+    }
 
     @Override
     public void login() {
         super.login();
 
+    }
+
+    public boolean verificarSenha(String senha) {
+        return this.senha.equals(senha);
     }
 
     public int getIdCliente() {
@@ -106,15 +122,15 @@ public class Cliente extends Pessoa {
     public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
     }
-   
-     public void exibirCarrinho(){
-        System.out.println("\n***************************************************");
-        System.out.println("\t\tCarrinho de Compras");
-        System.out.println("---------------------------------------------------");
-        for (Produto produto  : carrinhoDeCompras) {
-            System.out.println("\nNome: " + produto.getNome() + "\nPreço: " + produto.getValor() + "\t      Quantidade: " + produto.getQuantidadeCarrinho());
-            System.out.println("\n-------------------------------------------------");
-        }
+
+    public String getSenha() {
+        return senha;
     }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+   
+     
     
 }
