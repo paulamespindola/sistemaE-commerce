@@ -12,7 +12,7 @@ public class Cliente extends Pessoa {
     
     
     public Cliente() {
-        super("", "", "", ""); 
+        super("", "", "", "", ""); 
         this.idCliente = 0; 
         this.carrinhoDeCompras = new ArrayList<>();
     }

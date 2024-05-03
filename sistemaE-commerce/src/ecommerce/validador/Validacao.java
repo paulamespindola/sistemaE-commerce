@@ -5,7 +5,8 @@ import java.util.regex.Pattern;
 
 public class Validacao {
     public static boolean validarNome(String nome) {
-        return nome.length() > 10 && nome.matches("[\\p{L}\\s]+");
+        
+        return nome.length() > 10 && nome.matches("[a-zA-ZÀ-ú ]+");
     }
 
     public static boolean validarEmail(String email) {

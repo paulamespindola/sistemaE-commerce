@@ -80,7 +80,8 @@ public class Interface {
                     break;
                 case 2:
                     limparTerminal();
-                    System.out.println("Tela para cadastro em criação");
+                    System.out.println(titulo());
+                    cadastroCliente();
                     continuar = false;
                     break;
                 case 3:
@@ -213,69 +214,78 @@ public class Interface {
 
     public void cadastroCliente(){
 
-       Cliente cliente = new Cliente();
-
-        System.out.println("Cadastro de Cliente");
-        System.out.println("-------------------");
-
-        System.out.println("Nome: ");
-        String nome = scanner.nextLine();
-
-        // Validar o nome
-        if (!Validacao.validarNome(nome)) {
-            System.out.println("Nome inválido. O nome deve conter mais de 10 caracteres e apenas letras.");
-            return; // Encerra o cadastro se o nome for inválido
-        }
-        cliente.setNome(nome);
-
-        System.out.println("Email: ");
-        String email = scanner.nextLine();
-
-        // Validar o email
-        if (!Validacao.validarEmail(email)) {
-            System.out.println("Email inválido. O email deve seguir o formato correto.");
-            return; // Encerra o cadastro se o email for inválido
-        }
-        cliente.setEmail(email);
-
-        System.out.println("Telefone: ");
-        String telefone = scanner.nextLine();
-
-        // Validar o telefone
-        if (!Validacao.validarTelefone(telefone)) {
-            System.out.println("Telefone inválido. O telefone deve conter 11 dígitos.");
-            return; // Encerra o cadastro se o telefone for inválido
-        }
-        cliente.setTelefone(telefone);
-
-        System.out.println("CPF: ");
-        String cpf = scanner.nextLine();
-
-        // Validar o CPF
-        if (!Validacao.validarCPF(cpf)) {
-            System.out.println("CPF inválido. O CPF deve conter 11 dígitos numéricos.");
-            return; // Encerra o cadastro se o CPF for inválido
-        }
-        cliente.setCpf(cpf);
-
-        // Se chegou até aqui, todos os dados são válidos
-        // Então, continue com o cadastro do cliente ou salve os dados, conforme necessário
-    
-        cliente.setIdCliente(clientesCadastrados.size() + 1);
-        System.out.println("\nConfirmar cadastro(1-sim/0 não)?");
+        Cliente cliente = new Cliente();
+        scanner.nextLine();
+        System.out.println("\n\tCadastro de Cliente");
+        System.out.println("Digite os dados abaixo.");
+        
         do {
-           
-        setOpc(scanner.nextInt());
-        switch (opc) {
-            case 1:
-                adicionarCliente(cliente);
-                break;        
-            case 0: break;
-            default:System.out.println("Caractere incorreto.");
-                break;
-        }} while (opc != 0);
+            System.out.println("Nome: ");
+            String nome = "";
+            do {
+                nome = scanner.nextLine();
+                // Validar o nome
+                if (!Validacao.validarNome(nome)) {
+                    System.out.println("Nome inválido. O nome deve conter mais de 10 caracteres e apenas letras.");
+                }
+            } while (!Validacao.validarNome(nome)); 
+     
+            cliente.setNome(nome);
+     
+            System.out.println("Email: ");
+            String email = "";
+            do {
+                email = scanner.nextLine();
+                // Validar o email
+                if (!Validacao.validarEmail(email)) {
+                    System.out.println("Email inválido. O email deve seguir o formato correto.");
+                }
+            } while (!Validacao.validarEmail(email));
+            cliente.setEmail(email);
+     
+            System.out.println("Telefone: ");
+            String telefone = "";
+            do {
+                telefone = scanner.nextLine();
+                // Validar o telefone
+                if (!Validacao.validarTelefone(telefone)) {
+                    System.out.println("Telefone inválido. O telefone deve conter 11 dígitos.");
+                }
+            } while (!Validacao.validarTelefone(telefone));
+            cliente.setTelefone(telefone);
+     
+            System.out.println("CPF: ");
+            String cpf = "";
+            do {
+                cpf = scanner.nextLine();
+                // Validar o CPF
+                if (!Validacao.validarCPF(cpf)) {
+                    System.out.println("CPF inválido. O CPF deve conter 11 dígitos numéricos.");
+                }
+            } while (!Validacao.validarCPF(cpf));
+            cliente.setCpf(cpf);
 
-    }
+            //implememtar lógica da senha
+     
+            cliente.setIdCliente(clientesCadastrados.size() + 1);
+            System.out.println("\nConfirmar cadastro(1-sim/0 não)?");
+            setOpc(scanner.nextInt());
+            switch (opc) {
+                case 1:
+                    adicionarCliente(cliente);
+                    System.out.println("Cliente cadastrado com sucesso!!");
+                    break;        
+                case 0: 
+                    saindo();
+                    telaPrincipalCliente();
+                    break; 
+                default:
+                    System.out.println("Caractere incorreto.");
+                    break;
+            }
+        } while (opc != 0);
+     }
+     
 
 
     private void limparTerminal() {
@@ -306,6 +316,15 @@ public class Interface {
         }
     }
 
+    public void saindo(){
+        System.out.println("Saindo...");
+        try {
+            Thread.sleep(1000); // Aguardar 2 segundos
+        } catch (InterruptedException e) {
+            // Lidar com exceção, se necessário
+            e.printStackTrace();
+        }
+    }
     public int getOpc() {
         return opc;
     }
