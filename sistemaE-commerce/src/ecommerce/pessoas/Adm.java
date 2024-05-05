@@ -2,13 +2,15 @@ package ecommerce.pessoas;
 
 public class Adm extends Pessoa{
 
-    public Adm(String nome, String cpf, String telefone, String email, String senha) {
-        super(nome, cpf, telefone, email, senha);
+
+    public Adm() {
+        super("Administrador", "11111111111", "81999999999",
+         "adm@ecommerce.com", "adm@123");
+
     }
 
-    @Override
-    public void login() {
-        super.login();
+    public boolean verificarSenha(String senha) {
+        return this.getSenha().equals(senha);
     }
 
     

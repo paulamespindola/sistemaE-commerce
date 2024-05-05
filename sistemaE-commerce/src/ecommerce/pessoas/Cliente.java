@@ -8,7 +8,7 @@ import ecommerce.estoque.Produto;
 
 public class Cliente extends Pessoa {
     private int idCliente;
-    private String senha;
+   
     
 
     private List<Produto> carrinhoDeCompras;
@@ -112,7 +112,7 @@ public class Cliente extends Pessoa {
     }
 
     public boolean verificarSenha(String senha) {
-        return this.senha.equals(senha);
+        return this.getSenha().equals(senha);
     }
 
     public int getIdCliente() {
@@ -123,13 +123,7 @@ public class Cliente extends Pessoa {
         this.idCliente = idCliente;
     }
 
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
+ 
    
      
     

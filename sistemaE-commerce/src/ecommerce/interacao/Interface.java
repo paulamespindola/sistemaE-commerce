@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import ecommerce.estoque.Estoque;
 import ecommerce.estoque.Produto;
+import ecommerce.pessoas.Adm;
 import ecommerce.pessoas.Cliente;
 import ecommerce.validador.Validacao;
 
@@ -18,12 +19,14 @@ public class Interface {
     private Scanner scanner;
     private List<Cliente> clientesCadastrados;
     private Cliente clienteAtual;
+    private Adm adm;
 
     public Interface(Estoque estoque) {
         this.opc = -1;
         this.scanner = new Scanner(System.in);
         this.estoque = estoque;
         this.clientesCadastrados = new ArrayList<>();
+        adm = new Adm();
     }
 
     public String titulo(){
@@ -61,7 +64,7 @@ public class Interface {
     }
     
     public void telaPrincipalAdm(){
-    
+
         boolean continuar = true;
         do {
             limparTerminal();
@@ -74,9 +77,10 @@ public class Interface {
     
             switch (opc) {
                 case 1:
+                    scanner.nextLine();
                     limparTerminal();
                     System.out.println(titulo());
-                    System.out.println("Tela para login em criação");
+                    loginAdm();
                     continuar = false;
                     // Método login
                     break;
@@ -91,6 +95,30 @@ public class Interface {
         } while (continuar);
 
     }
+
+    public void loginAdm() {
+        System.out.println("\nDigite os dados");
+        System.out.println("Login: ");
+        String login = scanner.nextLine();
+        
+        
+        if (login.equals(adm.getEmail())) {
+            System.out.println("Senha: ");
+            String senha = scanner.nextLine();
+            
+           //esqueci do do-while para repetir caso o adm tenha digitado errado.
+            if (adm.verificarSenha(senha)) {
+                System.out.println("\nLogin do administrador bem-sucedido!");
+                setAdm(adm);
+                
+            } else {
+                System.out.println("Senha incorreta.");
+            }
+        } else {
+            System.out.println("Email do administrador não encontrado.");
+        }
+    }
+
 
     public void telaPrincipalCliente() {
         boolean continuar = true;
@@ -406,6 +434,14 @@ public class Interface {
 
     public void setClienteAtual(Cliente clienteAtual) {
         this.clienteAtual = clienteAtual;
+    }
+
+    public Adm getAdm() {
+        return adm;
+    }
+
+    public void setAdm(Adm adm) {
+        this.adm = adm;
     }
 
 }
