@@ -11,6 +11,7 @@ import ecommerce.pessoas.Adm;
 import ecommerce.pessoas.Cliente;
 import ecommerce.validador.Validacao;
 
+
 //import ecommerce.pessoas.Pessoa;
 public class Interface {
    // private Pessoa pessoa;
@@ -20,6 +21,7 @@ public class Interface {
     private List<Cliente> clientesCadastrados;
     private Cliente clienteAtual;
     private Adm adm;
+    private List<Produto> carrinhoDeComprasZero;
 
     public Interface(Estoque estoque) {
         this.opc = -1;
@@ -27,10 +29,12 @@ public class Interface {
         this.estoque = estoque;
         this.clientesCadastrados = new ArrayList<>();
         adm = new Adm();
+        this.carrinhoDeComprasZero = new ArrayList<>();
     }
 
     public String titulo(){
-        return "***********************************" + "\n\t    E-commerce" + "\n***********************************";
+        return "***********************************" +
+         "\n\t    E-commerce" + "\n***********************************";
     }
 
     public void telaPrincipal(){
@@ -151,7 +155,7 @@ public class Interface {
                     break;
                 case 4:
                     limparTerminal();
-                    System.out.println("Tela para mostrar carrinho em criação");
+                    exibirCarrinho();
                     continuar = false;
                     break;
                 case 0:
@@ -224,6 +228,7 @@ public class Interface {
                     exibirProdutos("Móveis");
                     break;
                 case 0:
+                    telaPrincipalCliente();
                     return;
                 default:
                     System.out.println("Opção inválida. Por favor, escolha uma opção válida.");
@@ -246,35 +251,27 @@ public class Interface {
         if (opcao >= 1 && opcao <= produtos.size()) {
             Produto produtoSelecionado = produtos.get(opcao - 1);
             produtoSelecionado.exibirProduto();
-            System.out.println("\nAdicionar ao carrinho de compras(1-sim/0-não)?");
+            System.out.println("\nAdicionar ao carrinho de compras(1-sim/0-voltar)?");
             opcao = scanner.nextInt();
+            int quantidade;
             //implementar lógica para adicionar ao carrinho
-        } else {
-            System.out.println("Opção inválida.");
-        }
-    }
-
-
-    
-
-   
-    public void telaPrincipalClienteComprar(){
-        System.out.println(titulo());
-        System.out.println("\nDigite uma das opções:");
-        System.out.println("1 - Eletrodomésticos\n2 - Móveis");
-
-        boolean continuar = true;
-        opc = scanner.nextInt();
-        do {
-            switch (opc) {
+            switch (opcao) {
                 case 1:
-                    
+                    System.out.println("Quantas unidades deseja?\nObs: quantidade mínima de 1 e máxima de 8 unidades");
+                    do {
+                        quantidade = scanner.nextInt();
+                    } while (!(quantidade <= 8 && quantidade > 0));
+                    adicinarNoCarrinho(produtoSelecionado, quantidade);
                     break;
-            
+                case 0: 
+                    saindo();
+                    telaComprar();
                 default:
                     break;
             }
-        } while (continuar);
+        } else {
+            System.out.println("Opção inválida.");
+        }
     }
 
     public void adicionarCliente(Cliente cliente){
@@ -356,9 +353,69 @@ public class Interface {
             }
         } while (opc != 0);
      }
+
+    public void adicinarNoCarrinho(Produto produto, int quantidade){
+        //método para adicionar ao carrinho caso ainda não esteja logado na conta
+        if (quantidade <= produto.getQuantidadeEstoque()) {
+            // Verificar se a quantidade excede o limite permitido por produto
+            if (quantidade <= 5) {
+                // Verificar se o produto já está no carrinho
+                boolean produtoJaNoCarrinho = false;
+                for (Produto p : carrinhoDeComprasZero) {
+                    if (p.getCodigo() == produto.getCodigo()) {
+                        produtoJaNoCarrinho = true;
+                        break;
+                    }
+                }
+                // Se o produto já estiver no carrinho, apenas atualize a quantidade
+                if (produtoJaNoCarrinho) {
+                    for (Produto p : carrinhoDeComprasZero) {
+                        if (p.getCodigo() == produto.getCodigo()) {
+                            p.setQuantidadeCarrinho(p.getQuantidadeCarrinho() + quantidade);
+                            break;
+                        }
+                    }
+                } else {
+                    // Caso contrário, adicione o produto ao carrinho
+                    produto.setQuantidadeCarrinho(quantidade);
+                    carrinhoDeComprasZero.add(produto);
+                }
+                System.out.println("Produto(s) adicionado(s) no carrinho com sucesso!");
+            } else {
+                System.out.println("Ops! O limite máximo de quantidade por produto é de 5 itens.");
+            }
+        } else {
+            System.out.println("Ops! Quantidade indisponível em estoque.");
+        }
+    }
      
+    public void exibirCarrinho(){
+        System.out.println("\n***************************************************");
+        System.out.println("\t\tCarrinho de Compras");
+        System.out.println("---------------------------------------------------");
+        for (Produto produto  : carrinhoDeComprasZero) {
+            System.out.println("\nNome: " + produto.getNome() + "\nPreço: " + produto.getValor() + "\t      Quantidade: " + produto.getQuantidadeCarrinho());
+            System.out.println("\n-------------------------------------------------");
+        }
+        System.out.println("Deseja finalizar a compra(1-sim/0-voltar)?");
+        int opc = scanner.nextInt();
+        switch (opc) {
+            case 1:
+                //metodo finalizar compra
+                break;
+            case 0: telaPrincipalCliente(); break;
+            default:
+                break;
+        }
+    }
 
+    public void finalizarCompra(){
+        
+    }
 
+    public void statusLogin(){
+        
+    }
     private void limparTerminal() {
         try {
             // Verificar o sistema operacional
