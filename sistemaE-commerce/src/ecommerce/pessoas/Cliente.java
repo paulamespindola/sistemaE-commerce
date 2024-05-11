@@ -8,8 +8,6 @@ import ecommerce.estoque.Produto;
 
 public class Cliente extends Pessoa {
     private int idCliente;
-   
-    
 
     private List<Produto> carrinhoDeCompras;
     
@@ -121,6 +119,13 @@ public class Cliente extends Pessoa {
 
     public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
+    }
+
+    public List<Produto> getCarrinhoDeCompras() {
+        return carrinhoDeCompras;
+    }
+    public void setCarrinhoDeCompras(List<Produto> carrinhoDeCompras) {
+        this.carrinhoDeCompras = carrinhoDeCompras;
     }
 
  

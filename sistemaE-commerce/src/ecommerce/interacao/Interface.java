@@ -22,6 +22,9 @@ public class Interface {
     private Cliente clienteAtual;
     private Adm adm;
     private List<Produto> carrinhoDeComprasZero;
+    private boolean loginClienteFeito;
+
+    
 
     public Interface(Estoque estoque) {
         this.opc = -1;
@@ -68,7 +71,6 @@ public class Interface {
     }
     
     public void telaPrincipalAdm(){
-
         boolean continuar = true;
         do {
             limparTerminal();
@@ -77,16 +79,15 @@ public class Interface {
             System.out.println("\nDigite uma opção:");
             System.out.println("1 - Login\n0 - Voltar");
     
-            opc = scanner.nextInt(); 
+            this.opc = scanner.nextInt(); 
     
-            switch (opc) {
+            switch (this.opc) {
                 case 1:
                     scanner.nextLine();
                     limparTerminal();
                     System.out.println(titulo());
                     loginAdm();
                     continuar = false;
-                    // Método login
                     break;
                 case 0:
                     telaPrincipal();
@@ -97,7 +98,6 @@ public class Interface {
                     break;
             }
         } while (continuar);
-
     }
 
     public void loginAdm() {
@@ -105,16 +105,12 @@ public class Interface {
         System.out.println("Login: ");
         String login = scanner.nextLine();
         
-        
         if (login.equals(adm.getEmail())) {
             System.out.println("Senha: ");
             String senha = scanner.nextLine();
             
-           //esqueci do do-while para repetir caso o adm tenha digitado errado.
             if (adm.verificarSenha(senha)) {
                 System.out.println("\nLogin do administrador bem-sucedido!");
-                setAdm(adm);
-                
             } else {
                 System.out.println("Senha incorreta.");
             }
@@ -122,7 +118,6 @@ public class Interface {
             System.out.println("Email do administrador não encontrado.");
         }
     }
-
 
     public void telaPrincipalCliente() {
         boolean continuar = true;
@@ -133,18 +128,16 @@ public class Interface {
             System.out.println("\nDigite uma opção:");
             System.out.println("1 - Login\n2 - Cadastro\n3 - Comprar\n4 - Exibir Carrinho\n0 - Voltar");
     
-            opc = scanner.nextInt();
+            this.opc = scanner.nextInt();
     
-            switch (opc) {
+            switch (this.opc) {
                 case 1:
                     limparTerminal();
-                    System.out.println("Tela para login em criação");
-                    // Método login
+                    loginCliente();
                     continuar = false;
                     break;
                 case 2:
                     limparTerminal();
-                    System.out.println(titulo());
                     cadastroCliente();
                     continuar = false;
                     break;
@@ -195,6 +188,7 @@ public class Interface {
                         setClienteAtual(cliente);
                         System.out.println("\nSeja Bem-vindo(a) " + clienteAtual.getNome());
                         loginSucesso = true;
+                        setLoginClienteFeito(true);
                         break;
                     } else {
                         System.out.println("Senha incorreta. Tentativa " + (tentativa + 1) + "/5");
@@ -286,7 +280,7 @@ public class Interface {
         System.out.println("\n\tCadastro de Cliente");
         System.out.println("\nDigite os dados abaixo.");
         
-        do {
+        
             System.out.println("Nome: ");
             String nome = "";
             do {
@@ -332,7 +326,9 @@ public class Interface {
             } while (!Validacao.validarCPF(cpf));
             cliente.setCpf(cpf);
 
-            //implememtar lógica da senha
+            System.out.println("Senha: ");
+            String senha = scanner.nextLine();
+            cliente.setSenha(senha);
      
             cliente.setIdCliente(clientesCadastrados.size() + 1);
             System.out.println("\nConfirmar cadastro(1-sim/0 não)?");
@@ -351,10 +347,44 @@ public class Interface {
                     System.out.println("Caractere incorreto.");
                     break;
             }
-        } while (opc != 0);
+    
      }
 
     public void adicinarNoCarrinho(Produto produto, int quantidade){
+
+        if (loginClienteFeito == true) {
+            if (quantidade <= produto.getQuantidadeEstoque()) {
+                // Verificar se a quantidade excede o limite permitido por produto
+                if (quantidade <= 5) {
+                    // Verificar se o produto já está no carrinho
+                    boolean produtoJaNoCarrinho = false;
+                    for (Produto p : clienteAtual.getCarrinhoDeCompras()) {
+                        if (p.getCodigo() == produto.getCodigo()) {
+                            produtoJaNoCarrinho = true;
+                            break;
+                        }
+                    }
+                    // Se o produto já estiver no carrinho, apenas atualize a quantidade
+                    if (produtoJaNoCarrinho) {
+                        for (Produto p : clienteAtual.getCarrinhoDeCompras()) {
+                            if (p.getCodigo() == produto.getCodigo()) {
+                                p.setQuantidadeCarrinho(p.getQuantidadeCarrinho() + quantidade);
+                                break;
+                            }
+                        }
+                    } else {
+                        clienteAtual.adicionarProduto(produto, quantidade);
+                    }
+                    System.out.println("Produto(s) adicionado(s) no carrinho com sucesso!");
+                } else {
+                    System.out.println("Ops! O limite máximo de quantidade por produto é de 5 itens.");
+                }
+            } else {
+                System.out.println("Ops! Quantidade indisponível em estoque.");
+            }
+        }else{
+
+        
         //método para adicionar ao carrinho caso ainda não esteja logado na conta
         if (quantidade <= produto.getQuantidadeEstoque()) {
             // Verificar se a quantidade excede o limite permitido por produto
@@ -388,6 +418,7 @@ public class Interface {
             System.out.println("Ops! Quantidade indisponível em estoque.");
         }
     }
+    }
      
     public void exibirCarrinho(){
         System.out.println("\n***************************************************");
@@ -401,7 +432,30 @@ public class Interface {
         int opc = scanner.nextInt();
         switch (opc) {
             case 1:
-                //metodo finalizar compra
+                if (loginClienteFeito == true) {
+                    for(Produto p : clienteAtual.getCarrinhoDeCompras()){
+                        estoque.diminuirEstoque(p, p.getQuantidadeCarrinho());
+                        System.out.println("Compra realizada com sucesso!");
+                    }
+                }else{
+                    System.out.println("Você não está logado na conta cliente. Deseja fazer o login ou o cadastro?\n1 - Login\n2 - Cadastro");
+                    int escolha = scanner.nextInt();
+                    switch (escolha) {
+                        case 1:
+                            loginCliente();
+                            exibirCarrinho();
+                        break;
+                        case 2: 
+                            cadastroCliente();
+                        default:
+                            System.out.println("Opção inválida");
+                            break;
+                    }
+                    for(Produto p : clienteAtual.getCarrinhoDeCompras()){
+                        estoque.diminuirEstoque(p, p.getQuantidadeCarrinho());
+                        System.out.println("Compra realizada com sucesso!");
+                    }
+                }
                 break;
             case 0: telaPrincipalCliente(); break;
             default:
@@ -499,6 +553,14 @@ public class Interface {
 
     public void setAdm(Adm adm) {
         this.adm = adm;
+    }
+
+    public boolean isLoginClienteFeito() {
+        return loginClienteFeito;
+    }
+
+    public void setLoginClienteFeito(boolean loginClienteFeito) {
+        this.loginClienteFeito = loginClienteFeito;
     }
 
 }
