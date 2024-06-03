@@ -12,9 +12,9 @@ public class Cliente extends Pessoa {
     private List<Produto> carrinhoDeCompras;
     
     
-    public Cliente() {
-        super("", "", "", "", ""); 
-        this.idCliente = 0; 
+
+   public Cliente(String nome, String email, String senha, String endereco) {
+        super(nome, nome, endereco, email, senha);
         this.carrinhoDeCompras = new ArrayList<>();
     }
 

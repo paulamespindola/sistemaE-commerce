@@ -53,6 +53,18 @@ public class Estoque {
         this.produtosEmEstoque = produtosEmEstoque;
     }
 
+    public Produto buscarProduto(String nome) {
+        for (Produto produto : produtosEmEstoque) {
+            if (produto.getNome().equals(nome)) {
+                return produto;
+            }
+        }
+        return null;
+    }
+
+    public List<Produto> getProdutos() {
+        return produtosEmEstoque;
+    }
     
 
     
