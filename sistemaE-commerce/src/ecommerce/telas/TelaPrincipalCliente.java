@@ -15,6 +15,8 @@ public class TelaPrincipalCliente extends JFrame {
     private JPasswordField senhaField;
     private JTextField nomeField;
     private JTextField enderecoField;
+    private JTextField cpfField;
+    private JTextField telefoneField;
 
     public TelaPrincipalCliente(TelaPrincipal telaPrincipal, Interface interacao) {
         this.telaPrincipal = telaPrincipal;
@@ -28,7 +30,7 @@ public class TelaPrincipalCliente extends JFrame {
 
     private void initUI() {
         Container pane = getContentPane();
-        pane.setLayout(new GridLayout(5, 1));
+        pane.setLayout(new GridLayout(6, 1));
 
         JLabel tituloLabel = new JLabel("Cliente", JLabel.CENTER);
         tituloLabel.setFont(new Font("Arial", Font.BOLD, 24));
@@ -117,11 +119,19 @@ public class TelaPrincipalCliente extends JFrame {
     private void showCadastroDialog() {
         JDialog dialog = new JDialog(this, "Cadastro Cliente", true);
         dialog.setSize(400, 300);
-        dialog.setLayout(new GridLayout(5, 2));
+        dialog.setLayout(new GridLayout(7, 2));
 
         dialog.add(new JLabel("Nome:"));
         nomeField = new JTextField();
         dialog.add(nomeField);
+
+        dialog.add(new JLabel("CPF:"));
+        cpfField = new JTextField();
+        dialog.add(cpfField);
+
+        dialog.add(new JLabel("Telefone:"));
+        telefoneField = new JTextField();
+        dialog.add(telefoneField);
 
         dialog.add(new JLabel("Email:"));
         emailField = new JTextField();
@@ -140,10 +150,12 @@ public class TelaPrincipalCliente extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String nome = nomeField.getText();
+                String cpf = cpfField.getText();
+                String telefone = telefoneField.getText();
                 String email = emailField.getText();
                 String senha = new String(senhaField.getPassword());
                 String endereco = enderecoField.getText();
-                Cliente novoCliente = new Cliente(nome, email, senha, endereco);
+                Cliente novoCliente = new Cliente(nome, cpf, telefone, email, senha, endereco);
                 interacao.adicionarCliente(novoCliente);
                 JOptionPane.showMessageDialog(dialog, "Cadastro bem-sucedido!");
                 dialog.dispose();
@@ -180,7 +192,7 @@ public class TelaPrincipalCliente extends JFrame {
         JPanel produtosPanel = new JPanel();
         produtosPanel.setLayout(new GridLayout(0, 1));
 
-        for (Produto produto : interacao.getEstoque().getProdutosEmEstoque()) {
+        for (Produto produto : interacao.getProdutosEmEstoque()) {
             JPanel produtoPanel = new JPanel();
             produtoPanel.setLayout(new FlowLayout());
 

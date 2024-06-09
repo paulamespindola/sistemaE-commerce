@@ -136,8 +136,8 @@ public class Interface {
         estoque.adicionarProduto(produto, quantidade);
     }
 
-    public void removerProdutoEstoque(Produto produto) {
-        estoque.removerProduto(produto);
+    public void removerProdutoEstoque(Produto produto, int quantidade) {
+        estoque.removerProduto(produto, quantidade );
     }
 
    

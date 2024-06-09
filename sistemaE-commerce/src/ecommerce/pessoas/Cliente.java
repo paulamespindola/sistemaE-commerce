@@ -8,19 +8,28 @@ import ecommerce.estoque.Produto;
 
 public class Cliente extends Pessoa {
     private int idCliente;
+    private String endereco;
 
-    private List<Produto> carrinhoDeCompras;
-    
-    
-
-   public Cliente(String nome, String email, String senha, String endereco) {
-        super(nome, nome, endereco, email, senha);
-        this.carrinhoDeCompras = new ArrayList<>();
+    public String getEndereco() {
+        return endereco;
     }
 
 
 
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+    private List<Produto> carrinhoDeCompras;
     
+    
+
+   public Cliente(String nome, String cpf, String telefone, String email, String senha, String endereco) {
+        super(nome, cpf, telefone, email, senha);
+        this.endereco = endereco;
+        this.carrinhoDeCompras = new ArrayList<>();
+    }
+
+
     
     public void adicionarProduto(Produto produto, int quantidade) {
         // Verificar se há quantidade suficiente em estoque

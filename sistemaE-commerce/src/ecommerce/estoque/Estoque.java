@@ -1,61 +1,35 @@
 package ecommerce.estoque;
-import java.util.ArrayList;
-import java.util.List;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Estoque {
-    private List<Produto> produtosEmEstoque;
+    private Map<Produto, Integer> produtos;
 
     public Estoque() {
-        this.produtosEmEstoque = new ArrayList<>();
+        produtos = new HashMap<>();
     }
 
-    public void adicionarProduto(Produto produto, int quantidade){
-        produto.setQuantidadeEstoque(quantidade);
-        produtosEmEstoque.add(produto);
+    public void adicionarProduto(Produto produto, int quantidade) {
+        produtos.put(produto, produtos.getOrDefault(produto, 0) + quantidade);
     }
 
-    public void removerProduto(Produto produto){
-        produtosEmEstoque.remove(produto);
-    }
-
-   
-    public void listarProduto(){
-        System.out.println("***************************************************");
-        System.out.println("\n\t\tProdutos em Estoque");
-        System.out.println("\n-------------------------------------------------");
-        for (Produto produto : produtosEmEstoque) {
-            System.out.println("\nNome: " + produto.getNome() + "\nPreço: " + produto.getValor() + "\nQuantidade em estoque: " + produto.getQuantidadeEstoque());
-            System.out.println("\n-------------------------------------------------");
+    public void removerProduto(Produto produto, int quantidade) {
+        int quantidadeAtual = produtos.getOrDefault(produto, 0);
+        if (quantidadeAtual >= quantidade) {
+            produtos.put(produto, quantidadeAtual - quantidade);
         }
     }
 
-
-    public void diminuirEstoque(Produto produto, int quantidade){
-        produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() - quantidade);
+    public int verificarQuantidade(Produto produto) {
+        return produtos.getOrDefault(produto, 0);
     }
 
-    public List<Produto> getProdutosPorCategoria(String categoria) {
-        List<Produto> produtosPorCategoria = new ArrayList<>();
-        for (Produto produto : produtosEmEstoque) {
-            if (produto.getCategoria().equalsIgnoreCase(categoria)) {
-                produtosPorCategoria.add(produto);
-            }
-        }
-        return produtosPorCategoria;
-    }
-    
-    public List<Produto> getProdutosEmEstoque() {
-        return produtosEmEstoque;
-    }
-
-    public void setProdutosEmEstoque(List<Produto> produtosEmEstoque) {
-        this.produtosEmEstoque = produtosEmEstoque;
-    }
-
-    public Produto buscarProduto(String nome) {
-        for (Produto produto : produtosEmEstoque) {
-            if (produto.getNome().equals(nome)) {
+    public Produto buscarProduto(int idProduto) {
+        for (Produto produto : produtos.keySet()) {
+            if (produto.getCodigo() == idProduto) {
                 return produto;
             }
         }
@@ -63,9 +37,37 @@ public class Estoque {
     }
 
     public List<Produto> getProdutos() {
+        return new ArrayList<>(produtos.keySet());
+    }
+
+    public String listarProduto() {
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<Produto, Integer> entry : produtos.entrySet()) {
+            sb.append("ID: ").append(entry.getKey().getCodigo())
+              .append(", Nome: ").append(entry.getKey().getNome())
+              .append(", Quantidade: ").append(entry.getValue())
+              .append(", Preço: R$").append(entry.getKey().getValor()).append("\n");
+        }
+        return sb.toString();
+    }
+
+    public List<Produto> getProdutosPorCategoria(String categoria) {
+        List<Produto> produtosPorCategoria = new ArrayList<>();
+        for (Produto produto : produtos.keySet()) {
+            if (produto.getCategoria().equalsIgnoreCase(categoria)) {
+                produtosPorCategoria.add(produto);
+            }
+        }
+        return produtosPorCategoria;
+    }
+
+    public List<Produto> getProdutosEmEstoque() {
+        List<Produto> produtosEmEstoque = new ArrayList<>();
+        for (Map.Entry<Produto, Integer> entry : produtos.entrySet()) {
+            if (entry.getValue() > 0) {
+                produtosEmEstoque.add(entry.getKey());
+            }
+        }
         return produtosEmEstoque;
     }
-    
-
-    
 }
