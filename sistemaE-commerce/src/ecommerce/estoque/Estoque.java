@@ -27,6 +27,19 @@ public class Estoque {
         return produtos.getOrDefault(produto, 0);
     }
 
+    public Produto buscarProduto(String nome) {
+        for (Produto produto : produtos.keySet()) {
+            if (produto.getNome().equalsIgnoreCase(nome)) {
+                return produto;
+            }
+        }
+        return null;
+    }
+
+    public List<Produto> getProdutosDisponiveis() {
+        return new ArrayList<>(produtos.keySet());
+    }
+    
     public Produto buscarProduto(int idProduto) {
         for (Produto produto : produtos.keySet()) {
             if (produto.getCodigo() == idProduto) {

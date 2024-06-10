@@ -139,7 +139,9 @@ public class TelaLoginAdm extends JFrame {
                 String nomeProduto = (String) produtosComboBox.getSelectedItem();
                 Produto produtoRemover = interacao.buscarProduto(nomeProduto);
                 if (produtoRemover != null) {
-                    interacao.removerProdutoEstoque(produtoRemover);
+                    String quantidadeStr = JOptionPane.showInputDialog("Informe a quantidade a remover:");
+                    int quantidade = Integer.parseInt(quantidadeStr);
+                    interacao.removerProdutoEstoque(produtoRemover, quantidade);
                     JOptionPane.showMessageDialog(dialog, "Produto removido com sucesso!");
                     dialog.dispose();
                 } else {

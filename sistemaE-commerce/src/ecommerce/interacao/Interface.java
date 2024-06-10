@@ -153,6 +153,9 @@ public class Interface {
         // Se necessário, atualizar o produto no estoque
     }
 
+    public List<Produto> getProdutosEmEstoque() {
+        return estoque.getProdutosEmEstoque();
+    }
    
 
 }

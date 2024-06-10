@@ -190,9 +190,12 @@ public class TelaPrincipalCliente extends JFrame {
         dialog.add(instrucoesLabel, BorderLayout.NORTH);
 
         JPanel produtosPanel = new JPanel();
-        produtosPanel.setLayout(new GridLayout(0, 1));
+        produtosPanel.setLayout(new BoxLayout(produtosPanel, BoxLayout.Y_AXIS)); // Usar BoxLayout para melhor controle de layout vertical
 
-        for (Produto produto : interacao.getProdutosEmEstoque()) {
+        java.util.List<Produto> produtos = interacao.getProdutosEmEstoque();
+        System.out.println("Número de produtos em estoque: " + produtos.size()); // Depuração
+
+        for (Produto produto : produtos) {
             JPanel produtoPanel = new JPanel();
             produtoPanel.setLayout(new FlowLayout());
 
@@ -237,4 +240,5 @@ public class TelaPrincipalCliente extends JFrame {
         dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
     }
+    
 }
